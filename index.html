@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15 | Student Developer Portfolio | PGC, Devigners</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind theme with the new Dark/Teal palette -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // New Dark Palette: Primary Dark (deep slate) and Accent Teal (bright contrast)
+                        'primary-dark': '#1f2937', // Dark Slate Blue for main contrast sections
+                        'accent-teal': '#2dd4bf', // Bright Cyan/Teal for highlights
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Inter Font Import -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for smooth scrolling and clean look */
+        html {
+            scroll-behavior: smooth;
+        }
+        .section-header {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 800; /* font-extrabold */
+            color: #f3f4f6; /* text-gray-50/white for dark mode */
+        }
+        
+        /* 1. Hero Text Fade-In Animation (onload) */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 20px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        .fade-in-up-h1 { animation: fadeInUp 1s ease-out 0.2s both; }
+        .fade-in-up-p { animation: fadeInUp 1s ease-out 0.4s both; }
+        .fade-in-up-btn { animation: fadeInUp 1s ease-out 0.6s both; }
+
+        /* 2. On-Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal.slide-left {
+            transform: translateX(-20px);
+        }
+        .reveal.slide-right {
+            transform: translateX(20px);
+        }
+        .reveal.active.slide-left {
+            transform: translateX(0);
+        }
+        .reveal.active.slide-right {
+            transform: translateX(0);
+        }
+
+        /* 3. Card Hover Transition Consistency and Effect */
+        .skill-card, .interest-card, .about-card {
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .skill-card:hover, .interest-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.2); /* stronger, darker shadow */
+        }
+
+        /* 4. Pulsing Glow for Contact Button (Updated to use Teal color code: #2dd4bf) */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(45, 212, 191, 0); }
+        }
+        .contact-btn-glow:hover {
+            animation: pulse-glow 1s infinite;
+        }
+
+        /* Removed textured-bg CSS for cleaner dark mode look */
+    </style>
+</head>
+<body class="bg-gray-950 font-sans text-gray-300">
+
+    <!-- JavaScript for On-Scroll Reveal -->
+    <script>
+        function revealElements() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150; // Reveal element when 150px into view
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                } else {
+                    reveals[i].classList.remove('active');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', revealElements);
+        window.onload = function() {
+            // Run on load to reveal elements already in viewport
+            revealElements();
+        }
+    </script>
+
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-gray-900 shadow-xl border-b border-gray-800">
+        <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-xl font-bold text-accent-teal hover:text-gray-100 transition duration-300">
+                &lt; A.H. / &gt;
+            </a>
+            <div class="space-x-4 flex">
+                <a href="#about" class="text-gray-400 hover:text-accent-teal font-medium transition duration-300 hidden sm:inline-block">About</a>
+                <a href="#skills" class="text-gray-400 hover:text-accent-teal font-medium transition duration-300 hidden sm:inline-block">Skills</a>
+                <a href="#interests" class="text-gray-400 hover:text-accent-teal font-medium transition duration-300 hidden sm:inline-block">Interests</a>
+                <a href="#contact" class="px-4 py-1.5 bg-accent-teal text-gray-900 font-semibold rounded-lg shadow-md hover:bg-teal-400 transition duration-300">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-20 pb-16 md:pt-32 md:pb-24 bg-gray-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="text-sm font-semibold uppercase tracking-wider text-accent-teal bg-accent-teal/10 px-3 py-1 rounded-full mb-3 inline-block opacity-0 fade-in-up-h1">
+                Future Developer | Age 15
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 opacity-0 fade-in-up-h1">
+                Hi, I'm <span class="text-accent-teal">Ahmad Hassan</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 opacity-0 fade-in-up-p">
+                ICS (Physics) student at PGC, currently building my foundation in web development at Devigners. I turn logic and curiosity into code.
+            </p>
+            <div class="flex justify-center space-x-4 opacity-0 fade-in-up-btn">
+                <a href="#interests" class="inline-block px-8 py-3 bg-accent-teal text-gray-900 font-semibold rounded-xl shadow-lg hover:bg-teal-400 transition duration-300 transform hover:scale-105 contact-btn-glow">
+                    Creative Vision
+                </a>
+                <a href="#contact" class="inline-block px-8 py-3 bg-gray-800 text-accent-teal border-2 border-accent-teal font-semibold rounded-xl shadow-lg hover:bg-gray-700 transition duration-300 transform hover:scale-105">
+                    Get In Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-16 md:py-24 bg-gray-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-header text-center mb-12 text-accent-teal reveal">About My Journey</h2>
+
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="about-card bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-accent-teal/50 reveal slide-left">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Academic Focus: PGC & ICS Physics</h3>
+                    <p class="mb-4 text-gray-300 leading-relaxed">
+                        I am currently studying for my **Intermediate in Computer Science (ICS)** at **PGC (Punjab Group of Colleges)**. My primary subject concentration is **Physics**.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        The analytical thinking and problem-solving required in Physics, especially in concepts like electromagnetism and logic gates, directly fuel my passion for clean and efficient code structures. I believe the discipline of science is the perfect partner for software development.
+                    </p>
+                </div>
+
+                <div class="about-card bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-accent-teal reveal slide-right">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Technical Training: Devigners Web Development</h3>
+                    <p class="mb-4 text-gray-300 leading-relaxed">
+                        To gain practical industry-relevant skills, I am learning web development at **Devigners**. This hands-on training is allowing me to transform theoretical knowledge into functional applications.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        I am building a strong foundation in frontend technologies and learning best practices for designing responsive and user-friendly interfaces. My goal is to use this knowledge to develop projects that solve real-world problems.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 md:py-24 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-header text-center mb-12 text-accent-teal reveal">Technical Toolkit</h2>
+
+            <!-- Adjusted grid to focus on the two remaining skills and center them on larger screens -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto md:grid-cols-2 reveal">
+                <!-- Skill Card: HTML5 -->
+                <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-4xl mb-3 text-red-500">
+                        <!-- Code Icon -->
+                        <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2h14l-1 12H6L5 2zm1 14l1 6h10l1-6H7z"/><path d="M12 7v5m0 0l-2-2m2 2l2-2"/></svg>
+                    </div>
+                    <p class="font-bold text-lg text-white">HTML5</p>
+                    <p class="text-sm text-gray-400">Structure & Semantics</p>
+                </div>
+                
+                <!-- Skill Card: Python -->
+                <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-4xl mb-3 text-yellow-500">
+                        <!-- Terminal Icon for Scripting -->
+                        <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                    </div>
+                    <p class="font-bold text-lg text-white">Python</p>
+                    <p class="text-sm text-gray-400">Backend Logic & Scripts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Interests & Vision Section (The "Something Cook" section) -->
+    <section id="interests" class="py-16 md:py-24 bg-gray-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-header text-center mb-12 text-accent-teal reveal">Interests & Future Vision</h2>
+
+            <div class="grid md:grid-cols-3 gap-8 text-center reveal">
+                <!-- Interest Card 1: Creative Thinking -->
+                <div class="interest-card bg-gray-800 p-8 rounded-2xl shadow-xl border-b-4 border-teal-500 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4 text-accent-teal">
+                        <!-- Lightbulb Icon -->
+                        💡
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Creative Problem Solving</h3>
+                    <p class="text-gray-300">I enjoy finding non-obvious solutions to tricky puzzles, whether in Physics assignments or when debugging code. It's all about logical exploration!</p>
+                </div>
+
+                <!-- Interest Card 2: Gaming / Digital Worlds -->
+                <div class="interest-card bg-gray-800 p-8 rounded-2xl shadow-xl border-b-4 border-teal-400 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4 text-accent-teal">
+                        <!-- Controller Icon -->
+                        🎮
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Exploring Digital Worlds</h3>
+                    <p class="text-gray-300">I'm fascinated by how games and applications are built. This curiosity drives me to learn how to create seamless user experiences and functional systems myself.</p>
+                </div>
+
+                <!-- Interest Card 3: Future Focus -->
+                <div class="interest-card bg-gray-800 p-8 rounded-2xl shadow-xl border-b-4 border-teal-500 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4 text-accent-teal">
+                        <!-- Rocket Icon -->
+                        🚀
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Building Smart Tools</h3>
+                    <p class="text-gray-300">My long-term goal is to combine my programming skills with Physics knowledge to build practical tools, maybe for educational purposes or data analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Interests Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-primary-dark">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <h2 class="text-4xl font-extrabold text-white mb-6">Let's Connect & Build</h2>
+            <p class="text-xl text-gray-400 mb-8">
+                I'm always looking for opportunities to collaborate, learn, and apply my skills. Feel free to reach out!
+            </p>
+
+            <div class="space-y-4">
+                <!-- Updated with Ahmad Hassan's actual email -->
+                <p class="text-lg text-white font-medium">
+                    Email: <a href="mailto:ahmadpgc657@gmail.com" class="underline hover:text-accent-teal transition duration-300">ahmadpgc657@gmail.com</a>
+                </p>
+                <!-- Instagram Option -->
+                <p class="text-lg text-white font-medium">
+                    Instagram: <a href="https://www.instagram.com/_ahmadkhaki/" target="_blank" class="underline hover:text-accent-teal transition duration-300">@ahmadkhaki</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+            <p>&copy; 2025 Ahmad Hassan. Built with HTML and CSS.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
